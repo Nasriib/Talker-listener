@@ -13,14 +13,13 @@
 # limitations under the License.
 
 import sys
-
+from num2words import num2words
 import rclpy
 from rclpy.executors import ExternalShutdownException
 from rclpy.node import Node
 
 from std_msgs.msg import String
 
-from num2words import num2words
 
 class Talker(Node):
 

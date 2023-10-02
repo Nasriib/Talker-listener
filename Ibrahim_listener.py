@@ -17,7 +17,8 @@ import sys
 import rclpy
 from rclpy.executors import ExternalShutdownException
 from rclpy.node import Node
-from word2num import w2n
+from num2words import num2words
+from word2number import w2n
 from std_msgs.msg import String
 
 
@@ -28,16 +29,11 @@ class Listener(Node):
         self.sub = self.create_subscription(String, 'chatter', self.chatter_callback, 10)
 
     def chatter_callback(self, msg):
+          
+        m = msg.data.split(':')[0].strip()
         
-      #  num_as_string = msg.data.lower()  # Ensure the string is in lowercase
-       # try:
-        #    num_as_int = w2n.word_to_num(num_as_string)  # Convert words to numbers
-         #   self.get_logger().info('Nasri heard: [%d]' % num_as_int)
-        
-        num_as_string = msg.data.lower()  # Ensure the string is in lowercase
-        num_as_int = int(num2words(num_as_string, lang='en', to='number'))
-      
-        self.get_logger().info('Nasri heard: [%d]' % num_as_int)
+        self.get_logger().info('Nasri heard: [ECE3432 -> %s: %d]' % (m, w2n.word_to_num(msg.data)))
+
 
 def main(args=None):
     rclpy.init(args=args)
